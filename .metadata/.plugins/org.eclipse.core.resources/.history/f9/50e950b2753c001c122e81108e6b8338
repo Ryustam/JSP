@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Action HTML</h1>
+
+<form method="POST" action="includeTagEx01.jsp">
+이름 : <input type="text" name="name"> <p>
+<input type="submit" value="보내기">
+</form>
+
+</body>
+</html>

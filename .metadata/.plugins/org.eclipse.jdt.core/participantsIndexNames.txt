@@ -1,0 +1,17 @@
+INDEX VERSION 1.131
+C:\Users\Ryustam\Desktop\JSP_EX\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3097778534.index
+\pet_shop\src\main\java
+C:\Users\Ryustam\Desktop\JSP_EX\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4072353262.index
+\jsp_actiontag\src\main\java
+C:\Users\Ryustam\Desktop\JSP_EX\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2530771558.index
+\jsp_practice\src\main\java
+C:\Users\Ryustam\Desktop\JSP_EX\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\4092179751.index
+\jsp_ex2\src\main\java
+C:\Users\Ryustam\Desktop\JSP_EX\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3086067611.index
+\jsp_session\src\main\java
+C:\Users\Ryustam\Desktop\JSP_EX\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2299471800.index
+\jsp_practice\src\main\java
+C:\Users\Ryustam\Desktop\JSP_EX\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\1224893421.index
+\jsp_css\src\main\java
+C:\Users\Ryustam\Desktop\JSP_EX\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\327842542.index
+\jsp_db_test\src\main\java

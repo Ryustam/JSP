@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>While Example</h1>
+<form method="post" action="">
+반복하고 싶은 문구: <input type="text" name="msg" size="20"> <p><p/>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>파라미터 읽기</title>
+</head>
+<body>
+<%
+out.println("전송된 파라미터는 다음과 같습니다.<br>");
+
+Enumeration paranames= request.getParameterNames();
+while(paranames.hasMoreElements()){
+	
+}
+
+%>
+</body>
+</html>

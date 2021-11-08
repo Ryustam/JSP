@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<%@ page import="MyPackage.Person" %>
+<jsp:useBean id="MyPerson" class="MyPackage.Person" scope="page"/>
+<jsp:setProperty name="MyPerson" property="name" value="송중기"/>
+<jsp:setProperty name="MyPerson" property="age" value="30"/>
+<jsp:setProperty name="MyPerson" property="height" value="176.5"/>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+	MyPerson.Introduce();
+%>
+</body>
+</html>

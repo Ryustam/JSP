@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h1>함수 x^2+2x+1 사용</h1>
+<form method="post" action="ex_26.jsp">
+x값: <input type="text" name="ㅌ"><p/>
+<input type="submit" value="보내기">
+</form>
+
+</body>
+</html>

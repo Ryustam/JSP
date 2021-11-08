@@ -1,0 +1,54 @@
+package dao;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+
+import dto.goodsDTO;
+
+public class goodsDAO {
+	private ArrayList<goodsDTO> dtos;
+	private Connection con;
+	private Statement st;
+	private PreparedStatement pstmt;
+	private ResultSet rs;
+	
+	private String url="jdbc:mysql://127.0.0.1:3306/jsp_db_test?serverTimezone=UTC&useSSL=false";
+	private String dbID="root";
+	private String dbPW="1234";
+	
+	
+	
+	public goodsDAO() {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection(url,dbID,dbPW);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	public ArrayList<goodsDTO> getAllGoods() {
+		dtos = new ArrayList<goodsDTO>();
+		String SQL="SELECT * FROM Book";
+		try {
+			rs=st.executeQuery(SQL);
+			while(rs.next()) {	
+				int num = rs.getString("num");
+				String name = rs.getString("name");
+				int price = rs.getString("");
+				goodsDTO VO=new goodsDTO(
+				dtos.add(VO);
+				
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return dtos;
+	}
+	
+}

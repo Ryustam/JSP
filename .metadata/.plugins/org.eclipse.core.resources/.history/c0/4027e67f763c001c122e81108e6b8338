@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Action HTML2</h1>
+
+<form method="post" action="IncludeTagEx02.jsp">
+
+sitename: <input type="text" name="siteName"> <p>
+<input type="submit" values="보내기">
+
+</form>
+
+</body>
+</html>
