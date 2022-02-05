@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="./login_action.jsp" method="post">
+	<form action="./login_action.jsp" method="get">
 		<input type="text" name="userId">
 		<input type="password" name="password">
 		<input type="submit" value="·Î±×ÀÎ">

@@ -1,8 +1,9 @@
 <%@page import="dao.goodsDAO"%>
 <%@page import="dto.goodsDTO"%>
 <%@page import="java.util.ArrayList"%>
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@page import="java.net.URLEncoder" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
    
 <!DOCTYPE html>
 <html lang="en">
@@ -11,7 +12,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content=""/>
         <meta name="author" content="" />
-        <title>µµµµ_∞ÌæÁ¿ÃøÎ«∞¡°</title>
+        <title>ÎèÑÎèÑ_Í≥†ÏñëÏù¥Ïö©ÌíàÏ†ê</title>
         <!-- Favicon-->
         <link rel="icon" type="image/x-icon" href="./resources/assets/favicon.ico" />
         <!-- Core theme CSS (includes Bootstrap)-->
@@ -23,19 +24,33 @@
     	boolean login=false;
     	goodsDAO goods = new goodsDAO();
     	private ArrayList<goodsDTO> goods_dtos;
+    	int index[]= new int[4];
     %>
     
     <%
-    int pageSize = 4; // «— ∆‰¿Ã¡ˆø° √‚∑¬«“ ∑πƒ⁄µÂ ºˆ
+    Object userID = session.getAttribute("userId");
+    if(userID==null){
+		login=false;
+	} else{
+		login= true;
+	}
+    
+    int pageSize = 4; // Ìïú ÌéòÏù¥ÏßÄÏóê Ï∂úÎ†•Ìï† Î†àÏΩîÎìú Ïàò
 
-	// ∆‰¿Ã¡ˆ ∏µ≈©∏¶ ≈¨∏Ø«— π¯»£ / «ˆ¿Á ∆‰¿Ã¡ˆ
+	// ÌéòÏù¥ÏßÄ ÎßÅÌÅ¨Î•º ÌÅ¥Î¶≠Ìïú Î≤àÌò∏ / ÌòÑÏû¨ ÌéòÏù¥ÏßÄ
 	String pageNum = request.getParameter("pageNum");
-	if (pageNum == null){ // ≈¨∏Ø«—∞‘ æ¯¿∏∏È 1π¯ ∆‰¿Ã¡ˆ
+	if (pageNum == null){ // ÌÅ¥Î¶≠ÌïúÍ≤å ÏóÜÏúºÎ©¥ 1Î≤à ÌéòÏù¥ÏßÄ
 		pageNum = "1";
 	}
-	int currentPage = Integer.parseInt(pageNum);
-
 	
+	String pagi_Num = request.getParameter("pagi_Num");
+	if (pagi_Num == null){ 
+		pagi_Num = "0";
+	}
+	
+	int currentPage = Integer.parseInt(pageNum);
+	int currentPagi = Integer.parseInt(pagi_Num);
+
 	int count=0;
 	count=goods.getCount();
 	
@@ -48,17 +63,36 @@
         <!-- Responsive navbar-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container">
-                <a class="navbar-brand" href="#!">µµµµº•</a>
+                <a class="navbar-brand" href="#!">ÎèÑÎèÑÏÉµ</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item"><a class="nav-link" href="./index.jsp">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">∑Œ±◊¿Œ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">»∏ø¯∞°¿‘</a></li>
+                        <%
+                        	if(login==false) {
+                        %>
+                        <li class="nav-item"><a class="nav-link" href="./login.jsp">Î°úÍ∑∏Ïù∏</a></li>
+                        <% 
+                        	}
+                        %>
+                        <li class="nav-item"><a class="nav-link" href="./sign.jsp">ÌöåÏõêÍ∞ÄÏûÖ</a></li>
                         <%
                         	if(login==true){ %>
-                        	<li class="nav-item"><a class="nav-link" href="#!">∑Œ±◊æ∆øÙ</a></li>
-                        	<li class="nav-item"><a class="nav-link active" aria-current="page" href="#">≥ª ∆‰¿Ã¡ˆ</a></li>
+                        	<li class="nav-item"><a class="nav-link" href="./logoutAction.jsp">Î°úÍ∑∏ÏïÑÏõÉ</a></li>
+                        	<li class="nav-item dropdown">
+                    		<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                        		data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        	ÎÇ¥ ÌéòÏù¥ÏßÄ
+                    		</a>
+                    		<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        		<a class="dropdown-item" href="./buy.jsp">Ïû•Î∞îÍµ¨Îãà</a>
+                        		<a class="dropdown-item" href="./buyList.jsp">Íµ¨Îß§ÎÇ¥Ïó≠</a>
+                        		<!--  
+                        		<div class="dropdown-divider"></div>
+                        		<a class="dropdown-item" href="#">Something else here</a>
+                        		-->
+                    		</div>
+                			</li>
                         <% 	
                         	}
                        	%>
@@ -68,11 +102,11 @@
             </div>
         </nav>
         <!-- Page header with logo and tagline-->
-        <header class="py-5 bg-light border-bottom mb-4">
-            <div class="container">
+        <header class="py-5 bg-light border-bottom mb-4" style="background-image: url(./resources/image/Î∞∞Í≤ΩÌôîÎ©¥1.jpg);">
+            <div class="container" >
                 <div class="text-center my-5">
-                    <h1 class="fw-bolder">∞ÌæÁ¿Ã∞° ¡˜¡¢ ∆ƒ¥¬ ¡¶«∞</h1>
-                    <p class="lead mb-0">æˆ√ª≥≠ «∞¡˙∞˙ º≠∫ÒΩ∫</p>
+                    <h1 class="fw-bolder">Í≥†ÏñëÏù¥Í∞Ä ÏßÅÏ†ë ÌååÎäî Ï†úÌíà</h1>
+                    <p class="lead mb-0">ÏóÑÏ≤≠ÎÇú ÌíàÏßàÍ≥º ÏÑúÎπÑÏä§</p>
                 </div>
             </div>
         </header>
@@ -83,35 +117,50 @@
                 <div class="col-lg-8">
                     <!-- Featured blog post-->
                     <div class="card mb-4">
-                        <a href="#!"><img class="card-img-top" src="./resources/image/¥ÎπÆªÁ¡¯.jpg" width="850px" height="350"   alt="..." /></a>
+                        <a href="#!"><img class="card-img-top" src="./resources/image/ÎåÄÎ¨∏ÏÇ¨ÏßÑ.jpg" width="850px" height="350"   alt="..." /></a>
                         <div class="card-body">
                            	<!-- <div class="small text-muted">August 10, 2021</div> -->
-                            <h2 class="card-title">∞°∞‘ ¡÷¿Œ¿Ãø√Ω√¥Ÿ</h2>
-                            <p class="card-text">∏π¿ÃµÈ µ—∑Ø∫∏∞Ì ±∏∏≈∫Œ≈π«—¥ŸøÀ</p>
-                            <a class="btn btn-primary" href="#!">Read more °Ê</a>
+                            <h2 class="card-title">Í∞ÄÍ≤å Ï£ºÏù∏Ïù¥Ïò¨ÏãúÎã§</h2>
+                            <p class="card-text">ÎßéÏù¥Îì§ ÎëòÎü¨Î≥¥Í≥† Íµ¨Îß§Î∂ÄÌÉÅÌïúÎã§Ïòπ</p>
+                            <a class="btn btn-primary" href="#!">Read more ‚Üí</a>
                         </div>
                     </div>
+
                     <!-- Nested row for non-featured blog posts-->
                     <div class="row">
                         <div class="col-lg-6">
                             <!-- Blog post-->
                             <%
-                            	for(int i=0;i<2;i++) {
-                            		goods_dtos=goods.getAllGoods(currentPage);	
+                            goods_dtos=goods.getAllGoods(currentPage);
+                            	for(int i=0;i<goods_dtos.size();i++) {
+                            			if(i==2){
+                            				break;
+                            			}
                             %>
                             <div class="card mb-4">
                                 <a href="#!"><img class="card-img-top" src="./resources/image/<%=goods_dtos.get(i).getName()+".jpg"%>" width="700px" height="350"alt="..." /></a>
                                 <div class="card-body">
                                     <!-- <div class="small text-muted">January 1, 2021</div>-->
                                     <h2 class="card-title h4"><%=goods_dtos.get(i).getName()%></h2>
-                                    <p class="card-text"><%=goods_dtos.get(i).getPrice()%>ø¯</p>
-                                    <a class="btn btn-primary" href="#!">Read more °Ê</a>
+                                    <p class="card-text"><%=goods_dtos.get(i).getPrice()%>Ïõê</p>
+                                    <%
+                                    	index[i]=i;
+                                    	if(login==true){
+                                    %>
+                                    <form action="./select_index.jsp" method="post">
+                                    <input type="hidden" name="goodName" value="<%=goods_dtos.get(i).getName()%>">
+                                    <input type="hidden" name="goodPrice" value="<%=goods_dtos.get(i).getPrice()%>">
+                                    <input type="hidden" name="pageNum" value="<%=pageNum%>">
+									<button class="btn btn-primary" type="submit" >Ïû•Î∞îÍµ¨Îãà Îã¥Í∏∞</button>
+									</form>  
+									<% 
+                                    	}
+									%> 
                                 </div>
                             </div>
                             <%
                             	}
-                            %>
-                            
+                            %>                
                         </div>
                         <div class="col-lg-6">
                             <!-- Blog post-->
@@ -124,8 +173,20 @@
                                 <div class="card-body">
                                     <!-- <div class="small text-muted">January 1, 2021</div>-->
                                     <h2 class="card-title h4"><%=goods_dtos.get(i).getName()%></h2>
-                                    <p class="card-text"><%=goods_dtos.get(i).getPrice()%>ø¯</p>
-                                    <a class="btn btn-primary" href="#!">Read more °Ê</a>
+                                    <p class="card-text"><%=goods_dtos.get(i).getPrice()%>Ïõê</p>
+                                    <%
+                                    	index[i]=i;
+                                    	if(login==true){
+                                    %>
+                                    <form action="./select_index.jsp" method="post">
+                                    <input type="hidden" name="goodName" value="<%=goods_dtos.get(i).getName()%>">
+                                    <input type="hidden" name="goodPrice" value="<%=goods_dtos.get(i).getPrice()%>">
+                                    <input type="hidden" name="pageNum" value="<%=pageNum%>">
+									<button class="btn btn-primary" type="submit">Ïû•Î∞îÍµ¨Îãà Îã¥Í∏∞</button>
+									</form>    
+									<% 
+                                    	}
+									%> 
                                 </div>
                             </div>
                             <%
@@ -133,36 +194,65 @@
                             %>
                         </div>
                     </div>
+                    
                     <!-- Pagination-->
                     <nav aria-label="Pagination">
                         <hr class="my-0" />
                         <ul class="pagination justify-content-center my-4">
-                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">Newer</a></li>
+                        	<%
+                        		if(currentPagi>0){
+                        	%>
+                        		<li class="page-item"><a class="page-link" href="./index.jsp?pagi_Num=<%=currentPagi-1%>" tabindex="-1" aria-disabled="true"><</a></li>
+                        	<%
+                        		} else {
+                        	%>
+                        	<li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true"><</a></li>
+                        	<%
+                        		}
+                        	%>
+                            
+                            
                             <%
-                            	for(int i=1; i<=endPage;i++) {
+                            	for(int i=1+(currentPagi*5); i<=endPage;i++) {
+                            		
                             %>
-                            <li class="page-item active" aria-current="page"><a class="page-link" href="./index.jsp?pageNum=<%=i%>"><%=i%></a></li>
+                            <li class="page-item active" aria-current="page"><a class="page-link" href="./index.jsp?pagi_Num=<%=currentPagi%>&pageNum=<%=i%>"><%=i%></a></li>
                            	<%
+                           			if(i%5==0){
+                    					break;
+                    				}
                             	}
                            	%>
                             <!-- <li class="page-item disabled"><a class="page-link" href="#!">...</a></li>-->
                             
-                            <li class="page-item"><a class="page-link" href="#!">Older</a></li>
+                            <%
+                            	if((currentPagi+1)*5>endPage){
+                            %>     
+                            <li class="page-item disabled"><a class="page-link" href="#" tabindex="-1" aria-disabled="true">></a></li>
+                            <%
+                            	} else {
+                            %>
+                            <li class="page-item"><a class="page-link" href="./index.jsp?pagi_Num=<%=currentPagi+1%>&pageNum=<%=1+((currentPagi+1)*5)%>">></a></li>
+                        	<% 
+                            	}
+                        	%>
                         </ul>
                     </nav>
                 </div>
                 <!-- Side widgets-->
                 <div class="col-lg-4">
                     <!-- Search widget-->
+                    <form action="./search.jsp" method="post">
                     <div class="card mb-4">
                         <div class="card-header">Search</div>
                         <div class="card-body">
                             <div class="input-group">
-                                <input class="form-control" type="text" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
-                                <button class="btn btn-primary" id="button-search" type="button">Go!</button>
+                                <input class="form-control" type="text" name="search" placeholder="Enter search term..." aria-label="Enter search term..." aria-describedby="button-search" />
+                                <button class="btn btn-primary" id="button-search" type="submit" >Go!</button>
                             </div>
                         </div>
                     </div>
+                   </form>
                     <!-- Categories widget-->
                     <div class="card mb-4">
                         <div class="card-header">Categories</div>
@@ -170,16 +260,16 @@
                             <div class="row">
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">ªÁ∑·</a></li>
-                                        <li><a href="#!">∞£Ωƒ</a></li>
-                                        <li><a href="#!">¿Â≥≠∞®</a></li>
+                                    	<li><a href="./search.jsp?search=<%=URLEncoder.encode("ÏÇ¨Î£å", "UTF-8")%>">ÏÇ¨Î£å</a></li>
+                                        <li><a href="./search.jsp?search=<%=URLEncoder.encode("Í∞ÑÏãù", "UTF-8")%>">Í∞ÑÏãù</a></li>
+                                        <li><a href="./search.jsp?search=<%=URLEncoder.encode("Ïû•ÎÇúÍ∞ê", "UTF-8")%>">Ïû•ÎÇúÍ∞ê</a></li>
                                     </ul>
                                 </div>
                                 <div class="col-sm-6">
                                     <ul class="list-unstyled mb-0">
-                                        <li><a href="#!">»≠¿ÂΩ«</a></li>
-                                        <li><a href="#!">≤⁄≤⁄¿Ã</a></li>
-                                        <li><a href="#!">∫πΩ«∫πΩ«</a></li>
+                                        <li><a href="./search.jsp?search=<%=URLEncoder.encode("ÌôîÏû•Ïã§", "UTF-8")%>">ÌôîÏû•Ïã§</a></li>
+                                        <li><a href="#!">ÍæπÍæπÏù¥</a></li>
+                                        <li><a href="#!">Î≥µÏã§Î≥µÏã§</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -187,8 +277,8 @@
                     </div>
                     <!-- Side widget-->
                     <div class="card mb-4">
-                        <div class="card-header">»ƒø¯ ∞Ë¡¬</div>
-                        <div class="card-body">±ππŒ 97539510065 ∑˘Ω¬¿±</div>
+                        <div class="card-header">Í≤åÏãúÌåê</div>
+                        <div class="card-body"><a href="#!">FAQ</a></div>
                     </div>
                 </div>
             </div>
@@ -201,5 +291,11 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"></script>
         <!-- Core theme JS-->
         <script src="./resources/css/scripts.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous">
+    </script>
     </body>
 </html>

@@ -1,20 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+ 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 
 <%
-	request.setCharacterEncoding("EUC-KR");
+	request.setCharacterEncoding("UTF-8");
 	String id = request.getParameter("ID");
 	String pass = request.getParameter("PASS");
 	
-	out.print("¾ÆÀÌµğ:"+id);
-	out.print("ºñ¹Ğ¹øÈ£:"+pass);
+	out.print("ì•„ì´ë””:"+id);
+	out.print("ë¹„ë°€ë²ˆí˜¸:"+pass);
 
 %>
 

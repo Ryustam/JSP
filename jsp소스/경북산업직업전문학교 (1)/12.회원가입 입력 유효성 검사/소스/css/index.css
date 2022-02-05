@@ -1,0 +1,12 @@
+@charset "EUC-KR";
+
+*{
+	margin:0;
+	padding:0;
+}
+
+#wrap{
+	width:800px;
+	height:800px;
+	background:"red";
+}

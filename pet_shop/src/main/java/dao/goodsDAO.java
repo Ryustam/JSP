@@ -50,6 +50,27 @@ public class goodsDAO {
 		return goods_dtos;
 	}
 	
+	public ArrayList<goodsDTO> getSearch(int page,String search) {
+		goods_dtos = new ArrayList<goodsDTO>();
+		String SQL="SELECT * FROM petGoods where name like ? limit ?, 4";
+		try {
+			pstmt=con.prepareStatement(SQL);
+			pstmt.setString(1,"%"+search+"%");
+			pstmt.setInt(2,(page-1)*4);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {	
+				int num = rs.getInt("num");
+				String name = rs.getString("name");
+				int price = rs.getInt("price");
+				goodsDTO VO=new goodsDTO(num,name,price);
+				goods_dtos.add(VO);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return goods_dtos;
+	}
+	
 	public int getCount() {
 			String SQL="select count(*) from petGoods";
 			int count=0;
@@ -64,5 +85,22 @@ public class goodsDAO {
 				e.printStackTrace();
 			}
 			return count;
+	}
+	
+	public int getSearchCount(String search) {
+		String SQL="select count(*) from petGoods where name like ?";
+		int count=0;
+		
+		try {
+			pstmt=con.prepareStatement(SQL);
+			pstmt.setString(1,"%"+search+"%");
+			rs = pstmt.executeQuery();
+			while(rs.next()) {	
+				count=rs.getInt(1);	
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}
+		return count;
 	}
 }
